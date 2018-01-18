@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0D150275-D146-46FC-B0EA-E614A1255FC8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CarPool.DAL</RootNamespace>
+    <AssemblyName>CarPool.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CarPoolApplicationModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarPoolApplicationModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CarPoolApplicationModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarPoolApplicationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CarPoolApplicationModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarPoolApplicationModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IApplicationUserRepo.cs" />
+    <Compile Include="Interfaces\ICarPoolAssociationRepo.cs" />
+    <Compile Include="Interfaces\ICarPoolRegistrationRepo.cs" />
+    <Compile Include="Interfaces\IMemberRepo.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ApplicationUserRepo.cs" />
+    <Compile Include="Repositories\CarPoolAssociationRepo.cs" />
+    <Compile Include="Repositories\CarPoolRegistrationRepo.cs" />
+    <Compile Include="Repositories\MemberRepo.cs" />
+    <Compile Include="tblApplicationUser.cs">
+      <DependentUpon>CarPoolApplicationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCarPoolMemberAssociation.cs">
+      <DependentUpon>CarPoolApplicationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCarPoolRegistration.cs">
+      <DependentUpon>CarPoolApplicationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMember.cs">
+      <DependentUpon>CarPoolApplicationModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CarPool.Shared\CarPool.Shared.csproj">
+      <Project>{f42d96ee-760f-42d8-a012-5515906df20a}</Project>
+      <Name>CarPool.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="CarPoolApplicationModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CarPoolApplicationModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\Debug\CarPool.DAL.dll.config" />
+    <None Include="CarPoolApplicationModel.edmx.diagram">
+      <DependentUpon>CarPoolApplicationModel.edmx</DependentUpon>
+    </None>
+    <None Include="obj\Debug\build.force" />
+    <None Include="obj\Debug\CarPool.DAL.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\CarPoolApplicationModel.csdl" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\CarPoolApplicationModel.msl" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\CarPoolApplicationModel.ssdl" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\CarPool.DAL.dll" />
+    <Content Include="bin\Debug\CarPool.DAL.pdb" />
+    <Content Include="bin\Debug\CarPool.Shared.dll" />
+    <Content Include="bin\Debug\CarPool.Shared.pdb" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="CarPoolApplicationModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CarPoolApplicationModel.edmx</DependentUpon>
+      <LastGenOutput>CarPoolApplicationModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CarPoolApplicationModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CarPoolApplicationModel.edmx</DependentUpon>
+      <LastGenOutput>CarPoolApplicationModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="obj\Debug\CarPool.DAL.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\CarPool.DAL.dll" />
+    <Content Include="obj\Debug\CarPool.DAL.pdb" />
+    <Content Include="obj\Debug\TempPE\CarPoolApplicationModel.cs.dll" />
+    <Content Include="obj\Debug\TempPE\CarPoolApplicationModel.Designer.cs.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

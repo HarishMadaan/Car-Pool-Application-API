@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f7483179b51340969549fa7e0e34369c" Name="Diagram1" ZoomLevel="84">
+        <EntityTypeShape EntityType="CarPoolApplicationModel.tblApplicationUser" Width="1.5" PointX="3.125" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarPoolApplicationModel.tblMember" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="CarPoolApplicationModel.FK_tblApplicationUser_tblMember" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CarPoolApplicationModel.tblCarPoolRegistration" Width="1.5" PointX="5.875" PointY="0.625" />
+        <AssociationConnector Association="CarPoolApplicationModel.FK_tblCarPoolRegistration_tblMember" />
+        <EntityTypeShape EntityType="CarPoolApplicationModel.tblCarPoolMemberAssociation" Width="1.5" PointX="9.125" PointY="2.375" />
+        <AssociationConnector Association="CarPoolApplicationModel.FK_tblCarPoolMemberAssociation_tblCarPoolRegistration" />
+        <AssociationConnector Association="CarPoolApplicationModel.FK_tblCarPoolMemberAssociation_tblMember" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CarPoolApplicationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblApplicationUser">
+          <Key>
+            <PropertyRef Name="ApplicationUserId" />
+          </Key>
+          <Property Name="ApplicationUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserIdentityKey" Type="int" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="EmailId" Type="nvarchar(max)" />
+          <Property Name="MobileNo" Type="nvarchar(max)" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="Gender" Type="nvarchar(max)" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifyBy" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblCarPoolMemberAssociation">
+          <Key>
+            <PropertyRef Name="AssociationId" />
+          </Key>
+          <Property Name="AssociationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarPoolId" Type="int" />
+          <Property Name="MemberId" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="DDate" Type="datetime" />
+          <Property Name="IsApproved" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCarPoolRegistration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId" Type="int" />
+          <Property Name="Source" Type="nvarchar(max)" />
+          <Property Name="Destination" Type="nvarchar(max)" />
+          <Property Name="PoolDate" Type="datetime" />
+          <Property Name="Time" Type="time" Precision="7" />
+          <Property Name="Charges" Type="float" />
+          <Property Name="SeatsAvailable" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="tblMember">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="EmailId" Type="nvarchar(max)" />
+          <Property Name="MobileNo" Type="nvarchar(max)" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="Gender" Type="nvarchar(max)" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="FatherName" Type="nvarchar(max)" />
+          <Property Name="MotherName" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifyBy" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <Association Name="FK_tblApplicationUser_tblMember">
+          <End Role="tblMember" Type="Self.tblMember" Multiplicity="0..1" />
+          <End Role="tblApplicationUser" Type="Self.tblApplicationUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblApplicationUser">
+              <PropertyRef Name="UserIdentityKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCarPoolMemberAssociation_tblCarPoolRegistration">
+          <End Role="tblCarPoolRegistration" Type="Self.tblCarPoolRegistration" Multiplicity="0..1" />
+          <End Role="tblCarPoolMemberAssociation" Type="Self.tblCarPoolMemberAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCarPoolRegistration">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCarPoolMemberAssociation">
+              <PropertyRef Name="CarPoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCarPoolMemberAssociation_tblMember">
+          <End Role="tblMember" Type="Self.tblMember" Multiplicity="0..1" />
+          <End Role="tblCarPoolMemberAssociation" Type="Self.tblCarPoolMemberAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblCarPoolMemberAssociation">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCarPoolRegistration_tblMember">
+          <End Role="tblMember" Type="Self.tblMember" Multiplicity="0..1" />
+          <End Role="tblCarPoolRegistration" Type="Self.tblCarPoolRegistration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblCarPoolRegistration">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarPoolApplicationModelStoreContainer">
+          <EntitySet Name="tblApplicationUser" EntityType="Self.tblApplicationUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCarPoolMemberAssociation" EntityType="Self.tblCarPoolMemberAssociation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCarPoolRegistration" EntityType="Self.tblCarPoolRegistration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMember" EntityType="Self.tblMember" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblApplicationUser_tblMember" Association="Self.FK_tblApplicationUser_tblMember">
+            <End Role="tblMember" EntitySet="tblMember" />
+            <End Role="tblApplicationUser" EntitySet="tblApplicationUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCarPoolMemberAssociation_tblCarPoolRegistration" Association="Self.FK_tblCarPoolMemberAssociation_tblCarPoolRegistration">
+            <End Role="tblCarPoolRegistration" EntitySet="tblCarPoolRegistration" />
+            <End Role="tblCarPoolMemberAssociation" EntitySet="tblCarPoolMemberAssociation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCarPoolMemberAssociation_tblMember" Association="Self.FK_tblCarPoolMemberAssociation_tblMember">
+            <End Role="tblMember" EntitySet="tblMember" />
+            <End Role="tblCarPoolMemberAssociation" EntitySet="tblCarPoolMemberAssociation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCarPoolRegistration_tblMember" Association="Self.FK_tblCarPoolRegistration_tblMember">
+            <End Role="tblMember" EntitySet="tblMember" />
+            <End Role="tblCarPoolRegistration" EntitySet="tblCarPoolRegistration" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarPoolApplicationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblApplicationUser">
+          <Key>
+            <PropertyRef Name="ApplicationUserId" />
+          </Key>
+          <Property Name="ApplicationUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserIdentityKey" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="tblMember" Relationship="Self.FK_tblApplicationUser_tblMember" FromRole="tblApplicationUser" ToRole="tblMember" />
+        </EntityType>
+        <EntityType Name="tblMember">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MotherName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="tblApplicationUsers" Relationship="Self.FK_tblApplicationUser_tblMember" FromRole="tblMember" ToRole="tblApplicationUser" />
+          <NavigationProperty Name="tblCarPoolRegistrations" Relationship="CarPoolApplicationModel.FK_tblCarPoolRegistration_tblMember" FromRole="tblMember" ToRole="tblCarPoolRegistration" />
+          <NavigationProperty Name="tblCarPoolMemberAssociations" Relationship="CarPoolApplicationModel.FK_tblCarPoolMemberAssociation_tblMember" FromRole="tblMember" ToRole="tblCarPoolMemberAssociation" />
+        </EntityType>
+        <Association Name="FK_tblApplicationUser_tblMember">
+          <End Role="tblMember" Type="Self.tblMember" Multiplicity="0..1" />
+          <End Role="tblApplicationUser" Type="Self.tblApplicationUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblApplicationUser">
+              <PropertyRef Name="UserIdentityKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarPoolApplicationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblApplicationUsers" EntityType="Self.tblApplicationUser" />
+          <EntitySet Name="tblMembers" EntityType="Self.tblMember" />
+          <AssociationSet Name="FK_tblApplicationUser_tblMember" Association="Self.FK_tblApplicationUser_tblMember">
+            <End Role="tblMember" EntitySet="tblMembers" />
+            <End Role="tblApplicationUser" EntitySet="tblApplicationUsers" />
+          </AssociationSet>
+          <EntitySet Name="tblCarPoolRegistrations" EntityType="CarPoolApplicationModel.tblCarPoolRegistration" />
+          <AssociationSet Name="FK_tblCarPoolRegistration_tblMember" Association="CarPoolApplicationModel.FK_tblCarPoolRegistration_tblMember">
+            <End Role="tblMember" EntitySet="tblMembers" />
+            <End Role="tblCarPoolRegistration" EntitySet="tblCarPoolRegistrations" />
+          </AssociationSet>
+          <EntitySet Name="tblCarPoolMemberAssociations" EntityType="CarPoolApplicationModel.tblCarPoolMemberAssociation" />
+          <AssociationSet Name="FK_tblCarPoolMemberAssociation_tblCarPoolRegistration" Association="CarPoolApplicationModel.FK_tblCarPoolMemberAssociation_tblCarPoolRegistration">
+            <End Role="tblCarPoolRegistration" EntitySet="tblCarPoolRegistrations" />
+            <End Role="tblCarPoolMemberAssociation" EntitySet="tblCarPoolMemberAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCarPoolMemberAssociation_tblMember" Association="CarPoolApplicationModel.FK_tblCarPoolMemberAssociation_tblMember">
+            <End Role="tblMember" EntitySet="tblMembers" />
+            <End Role="tblCarPoolMemberAssociation" EntitySet="tblCarPoolMemberAssociations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblCarPoolRegistration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" />
+          <Property Name="Source" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Destination" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PoolDate" Type="DateTime" Precision="3" />
+          <Property Name="Time" Type="Time" Precision="7" />
+          <Property Name="Charges" Type="Double" />
+          <Property Name="SeatsAvailable" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <NavigationProperty Name="tblMember" Relationship="CarPoolApplicationModel.FK_tblCarPoolRegistration_tblMember" FromRole="tblCarPoolRegistration" ToRole="tblMember" />
+          <NavigationProperty Name="tblCarPoolMemberAssociations" Relationship="CarPoolApplicationModel.FK_tblCarPoolMemberAssociation_tblCarPoolRegistration" FromRole="tblCarPoolRegistration" ToRole="tblCarPoolMemberAssociation" />
+        </EntityType>
+        <Association Name="FK_tblCarPoolRegistration_tblMember">
+          <End Type="CarPoolApplicationModel.tblMember" Role="tblMember" Multiplicity="0..1" />
+          <End Type="CarPoolApplicationModel.tblCarPoolRegistration" Role="tblCarPoolRegistration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblCarPoolRegistration">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblCarPoolMemberAssociation">
+          <Key>
+            <PropertyRef Name="AssociationId" />
+          </Key>
+          <Property Name="AssociationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarPoolId" Type="Int32" />
+          <Property Name="MemberId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <NavigationProperty Name="tblCarPoolRegistration" Relationship="CarPoolApplicationModel.FK_tblCarPoolMemberAssociation_tblCarPoolRegistration" FromRole="tblCarPoolMemberAssociation" ToRole="tblCarPoolRegistration" />
+          <NavigationProperty Name="tblMember" Relationship="CarPoolApplicationModel.FK_tblCarPoolMemberAssociation_tblMember" FromRole="tblCarPoolMemberAssociation" ToRole="tblMember" />
+        </EntityType>
+        <Association Name="FK_tblCarPoolMemberAssociation_tblCarPoolRegistration">
+          <End Type="CarPoolApplicationModel.tblCarPoolRegistration" Role="tblCarPoolRegistration" Multiplicity="0..1" />
+          <End Type="CarPoolApplicationModel.tblCarPoolMemberAssociation" Role="tblCarPoolMemberAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCarPoolRegistration">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCarPoolMemberAssociation">
+              <PropertyRef Name="CarPoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCarPoolMemberAssociation_tblMember">
+          <End Type="CarPoolApplicationModel.tblMember" Role="tblMember" Multiplicity="0..1" />
+          <End Type="CarPoolApplicationModel.tblCarPoolMemberAssociation" Role="tblCarPoolMemberAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblCarPoolMemberAssociation">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarPoolApplicationModelStoreContainer" CdmEntityContainer="CarPoolApplicationEntities">
+          <EntitySetMapping Name="tblApplicationUsers">
+            <EntityTypeMapping TypeName="CarPoolApplicationModel.tblApplicationUser">
+              <MappingFragment StoreEntitySet="tblApplicationUser">
+                <ScalarProperty Name="ApplicationUserId" ColumnName="ApplicationUserId" />
+                <ScalarProperty Name="UserIdentityKey" ColumnName="UserIdentityKey" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMembers">
+            <EntityTypeMapping TypeName="CarPoolApplicationModel.tblMember">
+              <MappingFragment StoreEntitySet="tblMember">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCarPoolRegistrations">
+            <EntityTypeMapping TypeName="CarPoolApplicationModel.tblCarPoolRegistration">
+              <MappingFragment StoreEntitySet="tblCarPoolRegistration">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SeatsAvailable" ColumnName="SeatsAvailable" />
+                <ScalarProperty Name="Charges" ColumnName="Charges" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="PoolDate" ColumnName="PoolDate" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCarPoolMemberAssociations">
+            <EntityTypeMapping TypeName="CarPoolApplicationModel.tblCarPoolMemberAssociation">
+              <MappingFragment StoreEntitySet="tblCarPoolMemberAssociation">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="DDate" ColumnName="DDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="CarPoolId" ColumnName="CarPoolId" />
+                <ScalarProperty Name="AssociationId" ColumnName="AssociationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
